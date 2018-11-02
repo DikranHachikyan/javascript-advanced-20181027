@@ -19,8 +19,8 @@ showMessage('Hello TS!');
 let s:number = sum(1,5);
 console.log(`s=${s}`);
 
-//let n:string = '12';
+let n:string = '12';
 
-//let val:number = <number>n;
+let val:number = parseInt(n);
 //let val:number   = n as number;
 
