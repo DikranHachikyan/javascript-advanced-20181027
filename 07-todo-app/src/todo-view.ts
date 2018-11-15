@@ -7,8 +7,8 @@ const todoView = (todo)=>{
                         `<span class="w-75 text-truncate">${title}</span>`;
         return `<li class="list-group-item" data-id=${id}>
                  <input type="checkbox" class="toggleCompleted" ${completed?"checked":""}/>
-                 <button class="remove text-danger">&times;</button>
-                 ${title}
+                 <button class="remove close text-danger">&times;</button>
+                 ${title$}
                </li>`;
     };
 

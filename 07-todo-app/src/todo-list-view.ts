@@ -21,17 +21,27 @@ const todoViewCollection = (el$, ...titleArr:string[]) =>{
             const removeButton$ = todo$.querySelector('.remove');
 
             checkbox$.addEventListener('click', (event)=>{
-                console.log(`toggle Completed task ${id}`)
+                console.log(`toggle Completed task ${id}`);
+                action('toggleCompleted', id);
             });
 
             removeButton$.addEventListener('click', (event)=>{
                 console.log(`remove task ${id}`);
+                action('remove',id);
             });
         });
     };
 
+    const action = (type:string, ...params:any[]):void=>{
+        //за remove
+        //todoCollection.remove(...parems);
+        todoCollection[type](...params);
+        render();
+    };
+
     return {
-        render
+        render,
+        action
     };
 };
 

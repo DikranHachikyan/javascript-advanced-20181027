@@ -42,6 +42,7 @@ const todoCollection = (...titleArr:string[])=>{
             }
             return todo;
         });
+        //console.log(`call toggle completed`, collection);
     };
 
     return {
