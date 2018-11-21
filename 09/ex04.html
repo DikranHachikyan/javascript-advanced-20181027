@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Mouse Events</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/rxjs/5.5.5/Rx.min.js"></script>
+</head>
+<body>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate at aliquam ratione labore. Nisi totam in laborum, amet possimus? Deleniti, sed ipsam ab, dolores vel dolorum vero fugit maiores recusandae?
+    </p>
+    <script>
+        Rx.Observable
+            .fromEvent(document, 'click')
+            .filter((event)=>event.clientX > window.innerWidth/2)
+            .take(10)
+            .subscribe( (event)=>console.log(event.clientX, event.clientY));
+    </script>
+</body>
+</html>

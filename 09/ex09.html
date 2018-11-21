@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Mouse Events</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/rxjs/5.5.5/Rx.min.js"></script>
+</head>
+<body>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corrupti consequuntur fugit impedit dolorem explicabo laudantium aspernatur maxime! Rerum dolore iusto possimus nisi fugiat, doloremque accusantium rem quis aspernatur similique vero?</p>
+    <script>
+        const stream = Rx.Observable.interval(10);//милисекунди
+
+        stream
+            .map( (value)=>value * 2)
+            .filter( (value)=> {
+                //for(let i = 0 ; i < 100 ; i++) document.write(i + "|");
+                return (value % 3) !== 0
+            })
+            .subscribe( (value)=>console.log(value),
+                        (error)=>console.log('error ',error),
+                        ()=>console.log('stream completed'));
+    </script>
+</body>
+</html>

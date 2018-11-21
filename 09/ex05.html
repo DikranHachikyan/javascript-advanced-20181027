@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Mouse Events</title>
+    <script
+    src="https://code.jquery.com/jquery-3.2.1.min.js"
+    integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+    crossorigin="anonymous" ></script>
+
+</head>
+<body>
+    <div style="font-size:20px;margin-bottom:30px" id="show">0</div>
+    <input type="button" id="inc" value="+">
+    <input type="button" id="dec" value="-">
+    <script>
+        let count = 0;//състояние
+        
+        $('#inc').click(function(event){
+            $('#show').text(++count);
+        });
+
+        $('#dec').click(function(event){
+            $('#show').text(--count);
+        });
+    </script>
+</body>
+</html>

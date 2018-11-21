@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Mouse Events</title>
+</head>
+<body>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate at aliquam ratione labore. Nisi totam in laborum, amet possimus? Deleniti, sed ipsam ab, dolores vel dolorum vero fugit maiores recusandae?
+    </p>
+    <script>
+        let clicks = 0;//състояние
+
+        const showClicks = (event)=>{
+            if( clicks < 10){
+                if( event.clientX > window.innerWidth/2){
+                    console.log(++clicks, event.clientX, event.clientY);
+                }
+            }
+            else{
+                document.removeEventListener('click', showClicks);
+                console.log('listener removed');
+            }
+        };
+
+        document.addEventListener('click', showClicks);
+    </script>
+</body>
+</html>

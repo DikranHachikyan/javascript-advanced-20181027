@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Mouse Events</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/rxjs/5.5.5/Rx.min.js"></script>
+</head>
+<body>
+    <div style="font-size:20px;margin-bottom:30px" id="show">0</div>
+    <input type="button" id="inc" value="+">
+    <input type="button" id="dec" value="-">
+    <script>
+        const buttonInc = document.querySelector('#inc');
+        const buttonDec = document.querySelector('#dec');
+        const divShow   = document.querySelector('#show');
+
+        const incStream = Rx.Observable
+                                .fromEvent(buttonInc,'click')
+                                .mapTo(1);
+                                //.subscribe((value)=>console.log(value));
+        const decStream = Rx.Observable
+                                .fromEvent(buttonDec,'click')
+                                .mapTo(-1);
+                                //.subscribe((value)=>console.log(value));
+        const counterStream = incStream
+                                .merge(decStream)
+                                .scan((acc,cur)=>acc+cur, 0);
+
+        counterStream.subscribe((value)=>divShow.innerHTML = value);
+    </script>
+</body>
+</html>
