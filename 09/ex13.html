@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Mouse Events</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/rxjs/5.5.5/Rx.min.js"></script>
+</head>
+<body>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corrupti consequuntur fugit impedit dolorem explicabo laudantium aspernatur maxime! Rerum dolore iusto possimus nisi fugiat, doloremque accusantium rem quis aspernatur similique vero?</p>
+    <script>
+        const streamA = Rx.Observable
+                                .interval(500)
+                                .filter((value)=>value % 2 === 0)
+                                .take(20);
+
+        const streamB = Rx.Observable
+                                .interval(100)
+                                .filter((value)=>value % 2 !== 0)
+                                .take(5)
+                                .map((value)=>value * 1000);                        
+
+        const output  = streamA.merge(streamB);
+
+        output
+            .subscribe( (value)=>console.log(value),
+                        (error)=>console.log('error ',error),
+                        ()=>console.log('stream completed'));
+    </script>
+</body>
+</html>

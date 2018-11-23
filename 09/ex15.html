@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BMI Calculator</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/rxjs/5.5.5/Rx.min.js"></script>
+</head>
+<body>
+    <div>
+        <div>Height (cm) <span id="height-value">130</span></div>
+        <div>
+            <input type="range" min="120" max="190" value="130" id="height-input">
+        </div>
+    </div>
+    <div>
+        <div>Weight (kg) <span id="weight-value">60</span></div>
+        <div>
+            <input type="range" min="40" max="120" value="60" id="weight-input">
+        </div>
+    </div>
+    <div>
+        BMI <span id="bmi">35.50</span>
+    </div>
+    <script>
+            const heightInput = document.querySelector('#height-input');
+            const weightInput = document.querySelector('#weight-input');
+            const bmi         = document.querySelector('#bmi');
+            const heightValue = document.querySelector('#height-value');
+            const weightValue = document.querySelector('#weight-value');
+
+            const height = Rx.Observable
+                                .fromEvent(heightInput,'input')
+                                .map((event)=>parseInt(event.target.value))
+                                .startWith(parseInt(heightInput.value));
+                                //.subscribe((value)=>console.log(`h:${value}`));
+
+            const weight = Rx.Observable
+                                .fromEvent(weightInput, 'input')
+                                .map((event)=>parseInt(event.target.value))
+                                .startWith(parseInt(weightInput.value));
+                                //.subscribe((value)=>console.log(`w:${value}`));
+
+            const combined = Rx.Observable
+                                .combineLatest(height,weight, (h,w)=>{
+                                    //console.log(`h:${h} w:${w}`);
+                                    return (w/(h/100)**2).toFixed(2);
+                                });
+
+            combined.subscribe((value)=>bmi.innerHTML = value);
+            height.subscribe((value)=>heightValue.innerHTML = value);
+            weight.subscribe((value)=>weightValue.innerHTML = value);
+    </script>
+</body>
+</html>
