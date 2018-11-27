@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Mouse Events</title>
+    <style>
+        #draggable {
+            border: 1px solid red;
+            width: 80px;
+            height: 80px;
+            background-color: yellow;
+           /*cursor: move;*/
+            position: absolute;
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/rxjs/5.5.5/Rx.min.js"></script>
+</head>
+<body>
+    <div id="draggable"></div>
+    <script>
+         const drag = document.querySelector('#draggable');
+
+         const mouseDown = Rx.Observable
+                                .fromEvent(drag, 'mousedown');
+         const mouseMove = Rx.Observable
+                                .fromEvent(drag, 'mouseMove');
+         const mouseUp   = Rx.Observable
+                                .fromEvent(drag, 'mouseup');
+
+        const mouseDrag = mouseDown
+                                .flatMap( (event)=>{
+                                    let startX = event.offsetX;
+                                    let startY = event.offsetY;
+
+                                    console.log(`mouse down`,event);    
+                                    return mouseMove
+                                             .map((event)=>{
+                                                //console.log(event);
+                                                return {
+                                                   top: event.clientY - startY,
+                                                   left: event.clientX - startX
+                                                }
+                                             })
+                                             .takeUntil(mouseUp);
+
+                                })
+                                .subscribe((position)=>{
+                                    drag.style.top = position.top + 'px';
+                                    drag.style.left = position.left + 'px';
+                                });                  
+    </script>
+</body>
+</html>

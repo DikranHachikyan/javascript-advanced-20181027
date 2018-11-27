@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Mouse Events</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/rxjs/5.5.5/Rx.min.js"></script>
+</head>
+<body>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corrupti consequuntur fugit impedit dolorem explicabo laudantium aspernatur maxime! Rerum dolore iusto possimus nisi fugiat, doloremque accusantium rem quis aspernatur similique vero?</p>
+    <script>
+        const streamA = Rx.Observable
+                                .interval(100)
+                                .take(20)
+                                .map((value)=>{
+                                    if( value === 9 ) throw new Error('invalid value');
+                                    return value;
+                                });
+
+        const streamB = streamA
+                              .filter((value)=>value % 2 === 0)
+                              .take(10);
+
+        const streamC = streamB
+                             .map((value)=> value * 2)
+                             .reduce((acc,cur)=>acc+cur);
+        
+        streamC                     
+             .subscribe((value)=>console.log(`C:${value}`),
+                        (error)=>console.log('C Stream Error:', error),
+                        ()=>console.log(`C Completed`));
+
+        streamA
+             .subscribe((value)=>console.log(`A:${value}`),
+                         (error)=>console.log('A Stream Error:',error),
+                         ()=>console.log(`A Completed`));     
+
+    </script>
+</body>
+</html>
