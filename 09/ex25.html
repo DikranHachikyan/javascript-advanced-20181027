@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Mouse Events</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/rxjs/5.5.5/Rx.min.js"></script>
+</head>
+<body>
+   <div class="container-fluid">
+       <div class="row">
+           <div class="col-sm-12">
+               <h1>Лога на фирми</h1>
+               <div class="form-group">
+                   <label for="search-box">Фирма:</label>
+                   <input type="text" id="search-box" class="form-control">
+               </div>
+           </div>
+           <div class="col-sm-12">
+               <ul id="list" class="list-group"></ul>
+           </div>
+       </div> <!-- ROW -->
+   </div> 
+<script>
+   const sbox$ = document.querySelector('#search-box');
+   const list$ = document.querySelector('#list');
+
+    const keyUp = Rx.Observable
+                    .fromEvent(sbox$,'keyup')
+                    .map((event)=>event.target.value)
+                    .filter((companyName)=>companyName.trim().length >= 2);
+    
+    const render = (companies)=>{
+        list$.innerHTML = '';
+        //console.log(companies);
+        let items = [];
+        for( let company of companies){
+            
+            let li$ = `<li class="list-group-item">
+                        <h2>${company.name}</h2>
+                        <a href="http://${company.domain}">
+                            <img src="${company.logo}" 
+                                 alt="${company.name}" 
+                                 class="img-responsive img-thumbnail"/>
+                        </a>
+                       </li>`;
+            items.push(li$)
+        }//for
+            list$.innerHTML = items.join('');           
+    };
+
+    keyUp.flatMap((companyName)=>{
+        console.log(companyName);
+        return Rx.Observable
+                .fromPromise(
+                    fetch(`https://autocomplete.clearbit.com/v1/companies/suggest?query=${companyName}`)
+                    .then(response=>response.json())
+                );
+    })
+    .subscribe(value=>{
+        render(value);
+        //console.log(value);
+    });
+    
+</script>
+</body>
+</html>
