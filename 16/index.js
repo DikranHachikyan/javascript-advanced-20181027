@@ -1,6 +1,6 @@
 import express from 'express';
 import bodyParser from 'body-parser';
-
+import mongoose from 'mongoose';
 
 import {routes} from './src/routes';
 
@@ -14,6 +14,9 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
 
+//Mongoose
+mongoose.Promise = Promise;
+mongoose.connect('mongodb://localhost/contacts',{useNewUrlParser: true});
 
 routes(app);
 //app.get('/', (req,res,next)=>{

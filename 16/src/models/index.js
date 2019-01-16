@@ -3,11 +3,11 @@ import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
 export const ContactSchema = new Schema({
-      firstName: {
+      firstname: {
           type: String
         , required:'First name is required'
     }
-    , lastName:{
+    , lastname:{
           type: String
         , required: 'Last name is required'
     }
