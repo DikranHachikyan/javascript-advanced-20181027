@@ -1,0 +1,26 @@
+<div class="form-inline d-block mt-3 mb-3">
+    <input type="text"
+           class="form-control d-inline-block"
+           placeholder="Add New Todo"
+           #todoTitle>
+    <button class="btn btn-primary"
+            (click)="addNewTodoItem(todoTitle)">
+        Add
+    </button>
+</div>
+<ul class="list-group">
+    <li *ngFor="let item of items" class="list-group-item">
+      <input type="checkbox"
+             class="mr-2"
+             [checked]="item.completed"
+             (change)="toggleCompleted(item.id)">  
+      <span
+            [ngClass]="item.completed? 'del':''">
+            {{item.title}}
+      </span>
+      <button class="close text-danger"
+              (click)="removeItem(item.id)">
+        &times;
+      </button>  
+    </li>
+</ul>

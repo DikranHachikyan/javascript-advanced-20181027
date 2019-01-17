@@ -17,7 +17,26 @@ export class TodoItemsService {
 
   constructor() { }
 
-  getTodoItems():TodoItems[]{
+  getTodoItems():TodoItem[]{
     return todoItems;
+  }
+
+  toggleCompleted(id:number):void{
+    todoItems.map( (item)=>{
+      if( item.id === id){
+        item.completed = !item.completed;
+      }
+    });
+  }
+
+  removeItem(id:number):void{
+    let index = todoItems.findIndex( (item)=>item.id === id);
+    if( index > -1){
+      todoItems.splice(index,1);
+    }
+  }
+
+  addNewTodo(item:TodoItem):void{
+    todoItems.push(item);
   }
 }
