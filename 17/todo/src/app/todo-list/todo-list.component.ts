@@ -10,14 +10,18 @@ import { TodoItemsService }  from '../model/todo-items.service';
 })
 export class TodoListComponent implements OnInit {
   items:TodoItem[];
+  message:string = '';
     
   constructor(private todoItemsService:TodoItemsService) {
     console.log('list component constructor');
   }
 
   ngOnInit() {
-    console.log('list component on init');
-    this.items = this.todoItemsService.getTodoItems();
+    //console.log('list component on init');
+    this.todoItemsService.getTodoItems()
+                         .subscribe((items)=>this.items = items
+                                   ,(error)=>console.log(error)
+                                   ,()=>this.message='List Loaded');
   }
 
   toggleCompleted(id:number):void{

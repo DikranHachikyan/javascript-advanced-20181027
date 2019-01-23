@@ -1,5 +1,6 @@
-import { Injectable } from '@angular/core';
-import { TodoItem }   from './todo-item';
+import { Injectable }     from '@angular/core';
+import { TodoItem }       from './todo-item';
+import { Observable, of } from 'rxjs';
 
 const todoItems:TodoItem[] = [
     {"id":1,"title":"Gratitude list – 5 things you are grateful for", "completed":false},
@@ -10,6 +11,8 @@ const todoItems:TodoItem[] = [
     {"id":6,"title":"Clear desk ready for a fresh day tomorrow!", "completed":false}
 ];
 
+const removedItems:TodoItem[] = [];
+
 @Injectable({
   providedIn: 'root'
 })
@@ -17,8 +20,8 @@ export class TodoItemsService {
 
   constructor() { }
 
-  getTodoItems():TodoItem[]{
-    return todoItems;
+  getTodoItems():Observable<TodoItem[]>{
+    return of(todoItems);
   }
 
   toggleCompleted(id:number):void{
@@ -37,6 +40,6 @@ export class TodoItemsService {
   }
 
   addNewTodo(item:TodoItem):void{
-    todoItems.push(item);
+    todoItems.unshift(item);
   }
 }

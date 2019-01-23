@@ -1,0 +1,14 @@
+<div class="row">
+    <div class="col-sm-8">
+        <div class="list-group">
+            <a class="list-group-item list-group-item-action"
+               *ngFor="let contact of contacts">
+                <span>{{contact.firstName}} {{contact.lastName}}</span> 
+                (<small>{{contact.created}}</small>)       
+            </a>
+        </div>
+    </div> <!-- left column-->
+    <div class="col-sm-4">
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum animi nesciunt adipisci ipsum necessitatibus saepe veniam minima consequatur pariatur officiis asperiores, deserunt nobis provident quo, neque inventore repudiandae dicta unde!</p>
+    </div> <!-- right column-->
+</div>

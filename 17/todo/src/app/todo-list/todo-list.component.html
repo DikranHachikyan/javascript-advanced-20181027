@@ -7,6 +7,10 @@
             (click)="addNewTodoItem(todoTitle)">
         Add
     </button>
+    <a routerLink="/removed"
+       class="btn btn-success">
+       Archive     
+    </a>
 </div>
 <ul class="list-group">
     <li *ngFor="let item of items" class="list-group-item">
@@ -24,3 +28,4 @@
       </button>  
     </li>
 </ul>
+<p *ngIf="message">{{message}}</p>
