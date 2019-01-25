@@ -1,0 +1,74 @@
+<h4 >Contact Details</h4>
+
+<form #detailsForm="ngForm">
+    <div class="form-group">
+        <label>
+            First Name 
+            <span class="text-danger">*</span>
+        </label>
+        <input type="text"
+               placeholder="First Name"
+               class="form-control"
+               required
+               name="first"
+               #firstName="ngModel"
+               [(ngModel)]="contact.firstName">
+    </div>
+    <div class="text-danger"
+         [hidden]="firstName.valid || firstName.pristine">
+         First name is required  
+    </div>
+    <!-- Last Name -->
+    <div class="form-group">
+        <label>
+            Last Name 
+            <span class="text-danger">*</span>
+        </label>
+        <input type="text"
+               placeholder="Last Name"
+               class="form-control"
+               required
+               name="last"
+               #lastName="ngModel"
+               [(ngModel)]="contact.lastName">
+    </div>
+    <div class="text-danger"
+         [hidden]="lastName.valid || lastName.pristine">
+         Last name is required  
+    </div>
+    <!-- E-Mail -->
+    <div class="form-group">
+        <label>
+            E-Mail
+            <span class="text-danger">*</span>
+        </label>
+        <input type="text"
+               placeholder="E-Mail"
+               class="form-control"
+               required
+               name="email"
+               #email="ngModel"
+               [(ngModel)]="contact.email">
+    </div>
+    <div class="text-danger"
+         [hidden]="email.valid || email.pristine">
+         E-Mail is required  
+    </div>
+    <!-- Phone -->
+    <div class="form-group">
+        <label>
+            Phone
+            <span class="text-danger">*</span>
+        </label>
+        <input type="text"
+               placeholder="Phone"
+               class="form-control"
+               name="phone"
+               #phone="ngModel"
+               [(ngModel)]="contact.phone">
+    </div>
+    <button class="btn btn-primary"
+            [disabled]="detailsForm.form.pristine || !detailsForm.form.valid">
+        Save
+    </button>
+</form>

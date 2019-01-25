@@ -1,14 +1,38 @@
 <div class="row">
     <div class="col-sm-8">
         <div class="list-group">
-            <a class="list-group-item list-group-item-action"
-               *ngFor="let contact of contacts">
-                <span>{{contact.firstName}} {{contact.lastName}}</span> 
-                (<small>{{contact.created}}</small>)       
-            </a>
+            <a  
+                class="list-group-item list-group-item-action"
+               *ngFor="let contact of contacts"
+               (click)="onSelectContact(contact._id)"
+                [class.active]="contact === selectedContact"
+               >
+               <button class="close text-danger ml-1 p-1"
+                       (click)="deleteContact($event,contact._id)">
+                   &times;
+               </button>
+               <h4>
+                {{contact.firstName}} {{contact.lastName}}    
+               </h4>
+               <p>
+                   <span class="badge badge-success">
+                    {{contact.email}}
+                   </span>
+                   <span class="badge badge-dark ml-2 mr-2" 
+                         *ngIf="contact.phone">
+                    {{contact.phone }}   
+                   </span>
+                    <small class="badge badge-info">
+                    {{contact.created|date:format:'dd.MM.yyyy'}}
+                   </small>       
+               </p>
+            </a> <!-- end of list group item (contact) -->
         </div>
     </div> <!-- left column-->
-    <div class="col-sm-4">
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum animi nesciunt adipisci ipsum necessitatibus saepe veniam minima consequatur pariatur officiis asperiores, deserunt nobis provident quo, neque inventore repudiandae dicta unde!</p>
+    <div class="col-sm-4"
+         *ngIf="selectedContact">
+        <app-contact-details
+            [selected-contact]="selectedContact"
+        ></app-contact-details>
     </div> <!-- right column-->
 </div>

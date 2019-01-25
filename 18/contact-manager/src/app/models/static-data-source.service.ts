@@ -49,4 +49,18 @@ export class StaticDataSourceService {
   getContactList():Observable<Contact[]>{
     return of(contacts);
   }
+
+  getContactById(id:string):Observable<Contact[]>{
+    let contact:Contact[] = contacts
+                              .filter((contact)=>contact._id === id);
+    return of(contact);
+  }
+
+  deleteContactById(id:string):void{
+    let index:number = contacts.findIndex((contact)=>contact._id === id);
+
+    if( index > -1){
+      contacts.splice(index,1);
+    }
+  }
 }
